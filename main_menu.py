@@ -5,6 +5,7 @@ import Day1.a
 import Day1.b_menu
 import Day2.a
 import Day2.b
+import Day3.a
 
 # scriptpath = "./1"
 # sys.path.append(os.path.abspath(scriptpath))
@@ -24,3 +25,5 @@ if(inp_menu == '2a'):
     Day2.a.a()
 if(inp_menu == '2b'):
     Day2.b.b()
+if(inp_menu == '3a'):
+    Day3.a.a()
