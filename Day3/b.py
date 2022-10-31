@@ -1,3 +1,20 @@
+def process_inp(cnt_oxy_or_co2, print_string):   
+    lines = []
+    with open('Day3/input.txt', 'r', newline='\n') as inp:
+        i=0
+        for line in inp:
+            lines.append(line)
+        for i in range(12):
+            if(len(lines) <= 1):
+                break
+            lines2 = del_lines(lines, i, cnt_oxy_or_co2)
+            lines.clear()
+            lines = lines2
+        result = int(lines[0],2)
+        lines.clear()
+        print(print_string + str(result))
+        return result
+
 def del_lines(inp, i, mode): #does not work w/ gamma since list is modified each cycle
     if mode=='oxygen_cnt_major':
         focus_val = '1'
@@ -30,8 +47,8 @@ def del_lines(inp, i, mode): #does not work w/ gamma since list is modified each
 def b():
     import os
     with open('Day3/input.txt', 'r', newline='\n') as inp:
-        count0s=[0,0,0,0,0,0,0,0,0,0,0,0]
-        count1s=[0,0,0,0,0,0,0,0,0,0,0,0]
+        count0s=[0 for _ in range(12)]
+        count1s=[0 for _ in range(12)]
         temp=[]
         i=0
         for line in inp:
@@ -49,47 +66,22 @@ def b():
                     break
 
         print("Final count of 1s: " + str(count1s))
-        gamma=[0,0,0,0,0,0,0,0,0,0,0,0]
-        epsilon=[1,1,1,1,1,1,1,1,1,1,1,1]
-        for i in range(len(gamma)):
+        gamma=''
+        epsilon=''
+        for i in range(len(count1s)):
             if count1s[i] > count0s[i]:
-                gamma[i]=1
-                epsilon[i]=0
-        print("gamma = " + str(gamma) + "epsilon = " + str(epsilon))
-        dec_gamma = 0
-        dec_epsilon = 0
-        for i in range(len(gamma)):
-            dec_gamma   += pow(2, (len(gamma)  -1-i)) * gamma[i]
-            dec_epsilon += pow(2, (len(epsilon)-1-i)) * epsilon[i]
+                gamma+='1'
+                epsilon+='0'
+            else:
+                gamma+='0'
+                epsilon+='1'
+        print("gamma = " + str(gamma) + " epsilon = " + str(epsilon))
+        dec_gamma = int(gamma,2)
+        dec_epsilon = int(epsilon,2)
         print("gamma decimal = " + str(dec_gamma))
         print("epsilon decimal = " + str(dec_epsilon))
-        print("power consumption (gamma * epsilon) = " + str(dec_gamma*dec_epsilon))
+        print("power consumption (gamma * epsilon) = " + str(dec_gamma * dec_epsilon))
 
-    lines = []
-    with open('Day3/input.txt', 'r', newline='\n') as inp:
-        i=0
-        for line in inp:
-            lines.append(line)
-        for i in range(12):
-            if(len(lines) <= 1):
-                break
-            lines2 = del_lines(lines, i, 'oxygen_cnt_major')
-            lines.clear()
-            lines = lines2
-        oxy = int(lines[0],2)
-        print("oxygen generator:" + str(oxy))
-        lines.clear()
-    with open('Day3/input.txt', 'r', newline='\n') as inp:
-        for line in inp:
-            lines.append(line)
-        for i in range(12):
-            if(len(lines) <= 1):
-                break
-            lines2 = del_lines(lines, i, 'co2scrubber_cnt_minor')
-            lines.clear()
-            lines = lines2
-        co2 = int(lines[0],2)
-        print("CO2 scrubber: " + str(co2))
+    oxy = process_inp('oxygen_cnt_major', "Oxygen Generator: ")
+    co2 = process_inp('co2scrubber_cnt_minor', "CO2 scrubber: ")
     print("life support rating (oxygen rate * CO2 scrubber rate) = " + str(oxy * co2))
-
-b()
