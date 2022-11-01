@@ -1,72 +1,44 @@
-wins = []
-win_nums = []
-def strtoint(instr):
-    if len(instr) != 15:
-        print('wrong str len...\n')
-    else:
-        outstr = []
-        for i in range(0,15,3):
-            outstr.append(int(instr[i]+instr[i+1]))
-    return outstr
+import math
+class pipes:
+    dots_mat = []
+    def cmp(self, a, b):
+        return (a > b) - (a < b)
+    def drawpath(self, x1, y1, x2, y2):
+        x = int(x1)
+        y = int(y1)
+        self.dots_mat[y][x] += 1
+        while(True):
+            y += int(self.cmp(y2, y1))
+            x += int(self.cmp(x2, x1))
+            self.dots_mat[y][x] += 1
+            if (y == y2) and (x == x2):
+                break
 
-def calc_result(currentset, num):
-    for line in currentset:
-        for i,x in enumerate(line):
-            if x == 100:
-                line[i]=0
-    sum_left_nums = sum([sum(x) for x in currentset])
-    solution = sum_left_nums * num
-    print("Solution Day 4b: " + str(solution))
-
-def calc_col_win(currentset, num):
-    colsum = [0 for x in range(5)]
-    for j in range(5):
-        for line in currentset:
-            colsum[j] += line[j]
-            if colsum[j] == 500:
-                return True
-    return False
-
+    def b(self):
+        import os
+        with open('Day5/input.txt', 'r', newline='\n') as inp:
+            vec = []
+            allp = []
+            for line in inp:
+                line = line.strip()
+                vec = line.split(' -> ')
+                x1, y1 = vec[0].split(',')
+                x2, y2 = vec[1].split(',')
+                pos=[int(x1), int(y1), int(x2), int(y2)]
+                allp.append(pos)
+            maxim = int(max([item for list in allp for item in list]))
+            self.dots_mat = [[0 for i in range(maxim+1)] for j in range(maxim+1)]
+            for pos in allp:
+                self.drawpath(pos[0],pos[1],pos[2],pos[3])
+            s = 0
+            for line_list in self.dots_mat:
+                for point in line_list:
+                    if point >1:
+                        s+=1
+            print("Result 5b: " + str(s))
 
 def b():
-    import os
-    import copy
-    draw = 0
-    draw_str = ''
-    global last_win
-    global win_nums
+    inst = pipes()
+    inst.b()
 
-    with open('Day4/input.txt', 'r', newline='\n') as inp:
-        draw_str = inp.readline() 
-        draw = list(map(int,draw_str.split(',')))
-        print(str(draw))
-        i = 0
-        sets = []
-        for line in inp:
-            if line == '\n':
-                sets.append([])
-            else:
-                sets[-1].append(strtoint(line))
-        for num in draw:
-            for k, currentset in enumerate(sets):
-                if k in wins:
-                    continue
-                for line in currentset:
-                    for i,x in enumerate(line):
-                        if x == num:
-                            line[i] = 100
-                    if (sum(line) == 500):
-                        print("Bingo!")
-                        wins.append(k)
-                        win_nums.append(num)
-                        break
-                    elif calc_col_win(currentset, num) == True:
-                        print("Bingo!")
-                        wins.append(k)
-                        win_nums.append(num)
-                        break
-                    else:
-                        continue
-                    break
-                                      
-        calc_result(sets[wins[-1]], win_nums[-1])
+b()
