@@ -10,6 +10,7 @@ import Day3.b
 import Day4.a
 import Day4.b
 import Day5.a
+import Day5.b
 
 inp_menu = input("please type in quest number. Synatx:\n(Quest no.(1-25))+(Part no.(a or b))\n\
     examples: 1a, 1b, 12a, 24b, ...\n")
@@ -32,3 +33,5 @@ if(inp_menu == '4b'):
     Day4.b.b()
 if(inp_menu == '5a'):
     Day5.a.a()
+if(inp_menu == '5b'):
+    Day5.b.b()
