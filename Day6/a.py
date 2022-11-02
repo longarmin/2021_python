@@ -18,5 +18,3 @@ def a():
             for i in range(len(f.fishlife)):
                 f.next_day(i)
         print(len(f.fishlife))
-
-a()

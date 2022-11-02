@@ -40,5 +40,3 @@ class pipes:
 def b():
     inst = pipes()
     inst.b()
-
-b()

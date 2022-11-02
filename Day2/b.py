@@ -21,5 +21,3 @@ def b():
                 pos.x+=int(temp[1])
                 pos.y+=int(pos.calc_delta_depth(int(temp[1])))
         print("Final Position: (" + str(pos.x) + ", " + str(pos.y) + "),\nProduct x * y = " + str(pos.product()))
-
-b()
