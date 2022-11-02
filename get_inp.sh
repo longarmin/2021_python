@@ -5,4 +5,4 @@ echo 'Day'$1
 DIR='Day'$1
 echo $DIR
 cd $DIR
-curl https://adventofcode.com/2021/day/$1/input --cookie "session=$2" > in.txt
+curl https://adventofcode.com/2021/day/$1/input --cookie "session=$2" > input.txt
