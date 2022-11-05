@@ -11,12 +11,15 @@ def sum_family(a):
         d[7] = temp
     return(sum(d))
 
-def b():
+def main(inp):
+    line = inp.readline()
+    fishes= [int(a) for a in line.split(',')]
+    fishes_sum = []
+    for m in fishes:
+        fishes_sum.append(sum_family(m))
+    print(sum(fishes_sum))
+
+if __name__=="__main__":
     import os
-    with open('Day6/input.txt', 'r', newline='\n') as inp:
-        line = inp.readline()
-        fishes= [int(a) for a in line.split(',')]
-        fishes_sum = []
-        for m in fishes:
-            fishes_sum.append(sum_family(m))
-        print(sum(fishes_sum))
+    with open("Day6/input.txt",'r',newline='\n') as inp:
+        main(inp)

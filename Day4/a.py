@@ -16,41 +16,35 @@ def calc_result(currentset, num):
     solution = sum_left_nums * num
     print("Solution Day 4a: " + str(solution))
 
-def a():
-    import os
+def main(inp):
     draw = 0
     draw_str = ''
 
-    with open('Day4/input.txt', 'r', newline='\n') as inp:
-        draw_str = inp.readline() 
-        draw = list(map(int,draw_str.split(',')))
-        print(str(draw))
-        i = 0
-        sets = []
-        for line in inp:
-            if line == '\n':
-                sets.append([])
-            else:
-                sets[-1].append(strtoint(line))
-        for num in draw:
-            for currentset in sets:
-                for line in currentset:
-                    for i,x in enumerate(line):
-                        if x == num:
-                            line[i] = 100
-                    if (sum(line) == 500):
-                        calc_result(currentset, num)
-                        break
-                    colsum = [0 for x in range(5)]
-                    for j in range(5):
-                        for line in currentset:
-                            colsum[j] += line[j]
-                            if colsum[j] == 500:
-                                print("Bingo!")
-                                calc_result(currentset, num)
-                                break
-                            else:
-                                continue
+    draw_str = inp.readline() 
+    draw = list(map(int,draw_str.split(',')))
+    i = 0
+    sets = []
+    for line in inp:
+        if line == '\n':
+            sets.append([])
+        else:
+            sets[-1].append(strtoint(line))
+    for num in draw:
+        for currentset in sets:
+            for line in currentset:
+                for i,x in enumerate(line):
+                    if x == num:
+                        line[i] = 100
+                if (sum(line) == 500):
+                    calc_result(currentset, num)
+                    break
+                colsum = [0 for x in range(5)]
+                for j in range(5):
+                    for line in currentset:
+                        colsum[j] += line[j]
+                        if colsum[j] == 500:
+                            print("Bingo!")
+                            calc_result(currentset, num)
                             break
                         else:
                             continue
@@ -58,9 +52,17 @@ def a():
                     else:
                         continue
                     break
-                else: 
+                else:
                     continue
                 break
-            else:
+            else: 
                 continue
             break
+        else:
+            continue
+        break
+
+if __name__=="__main__":
+    import os
+    with open("Day4/input.txt",'r',newline='\n') as inp:
+        main(inp)

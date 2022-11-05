@@ -8,13 +8,16 @@ class fishes:
             self.fishlife[i] = 6
             self.fishlife.append(8)
 
-def a():
+def main(inp):
+    f = fishes()
+    line = inp.readline()
+    f.fishlife = [int(a) for a in line.split(',')]
+    for day in range(80):
+        for i in range(len(f.fishlife)):
+            f.next_day(i)
+    print(len(f.fishlife))
+
+if __name__=="__main__":
     import os
-    with open('Day6/testinput.txt', 'r', newline='\n') as inp:
-        f = fishes()
-        line = inp.readline()
-        f.fishlife = [int(a) for a in line.split(',')]
-        for day in range(256):
-            for i in range(len(f.fishlife)):
-                f.next_day(i)
-        print(len(f.fishlife))
+    with open("Day6/input.txt",'r',newline='\n') as inp:
+        main(inp)

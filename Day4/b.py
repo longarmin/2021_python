@@ -28,45 +28,45 @@ def calc_col_win(currentset, num):
     return False
 
 
-def b():
-    import os
+def main(inp):
     import copy
     draw = 0
     draw_str = ''
     global last_win
     global win_nums
 
-    with open('Day4/input.txt', 'r', newline='\n') as inp:
-        draw_str = inp.readline() 
-        draw = list(map(int,draw_str.split(',')))
-        print(str(draw))
-        i = 0
-        sets = []
-        for line in inp:
-            if line == '\n':
-                sets.append([])
-            else:
-                sets[-1].append(strtoint(line))
-        for num in draw:
-            for k, currentset in enumerate(sets):
-                if k in wins:
-                    continue
-                for line in currentset:
-                    for i,x in enumerate(line):
-                        if x == num:
-                            line[i] = 100
-                    if (sum(line) == 500):
-                        print("Bingo!")
-                        wins.append(k)
-                        win_nums.append(num)
-                        break
-                    elif calc_col_win(currentset, num) == True:
-                        print("Bingo!")
-                        wins.append(k)
-                        win_nums.append(num)
-                        break
-                    else:
-                        continue
+    draw_str = inp.readline() 
+    draw = list(map(int,draw_str.split(',')))
+    i = 0
+    sets = []
+    for line in inp:
+        if line == '\n':
+            sets.append([])
+        else:
+            sets[-1].append(strtoint(line))
+    for num in draw:
+        for k, currentset in enumerate(sets):
+            if k in wins:
+                continue
+            for line in currentset:
+                for i,x in enumerate(line):
+                    if x == num:
+                        line[i] = 100
+                if (sum(line) == 500):
+                    wins.append(k)
+                    win_nums.append(num)
                     break
-                                      
-        calc_result(sets[wins[-1]], win_nums[-1])
+                elif calc_col_win(currentset, num) == True:
+                    wins.append(k)
+                    win_nums.append(num)
+                    break
+                else:
+                    continue
+                break
+                                    
+    calc_result(sets[wins[-1]], win_nums[-1])
+
+if __name__=="__main__":
+    import os
+    with open("Day4/input.txt",'r',newline='\n') as inp:
+        main(inp)

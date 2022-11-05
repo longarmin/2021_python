@@ -65,20 +65,20 @@ class decoder:
                     self.decoded_digits.append(0)
             elif letter_cnt_sum == 45:
                     self.decoded_digits.append(9)
-		
-def b():
-    import os
-    import numpy as np
+def main(inp):
+    a = []
+    m = decoder()
+    res = 0
+    for line in inp:
+        a.append(line.split('|'))
+    for l in a:
+        l[0]=l[0].split()
+        l[1]=l[1].strip().split()
+    for i in range(len(a)):
+        res += m.check_input(a[i][0],a[i][1])  
+    print(res)
 
-    with open('Day8/input.txt', 'r', newline='\n') as inp:
-        a = []
-        m = decoder()
-        res = 0
-        for line in inp:
-            a.append(line.split('|'))
-        for l in a:
-            l[0]=l[0].split()
-            l[1]=l[1].strip().split()
-        for i in range(len(a)):
-            res += m.check_input(a[i][0],a[i][1])  
-        print(res)
+if __name__=="__main__":
+    import os
+    with open("Day8/input.txt",'r',newline='\n') as inp:
+        main(inp)
