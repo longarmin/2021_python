@@ -1,3 +1,6 @@
+# Verbesserungsideen:
+# - statt einer extra Flags-Matrix, können die Flag-Positionen in ein ToDo-List geschrieben werden
+
 class flashing_oct:
     mat = []
     mat_flags = []
